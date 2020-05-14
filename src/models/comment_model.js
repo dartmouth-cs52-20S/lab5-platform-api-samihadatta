@@ -3,7 +3,7 @@ import mongoose, { Schema } from 'mongoose';
 // create a CommentSchema with a title field
 const CommentSchema = new Schema({
     id: String,
-    postID: String,
+    postId: String,
     content: String,
 }, {
     toObject: { virtuals: true },

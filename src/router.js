@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import * as Posts from './controllers/post_controller';
+import * as Comments from './controllers/comment_controller';
 
 
 const router = Router();
@@ -27,6 +28,31 @@ router.route('/posts/:id')
     )
     .delete(
         Posts.deletePost,
+    );
+
+router.route('/comments/post=:id')
+    .get(
+        // id is post id
+        Comments.getComments,
+    )
+    .post(
+        // id is post id
+        Comments.addComment,
+    )
+    .delete(
+        Comments.deleteComments,
+    );
+router.route('/comments/comment=:id')
+    .get(
+        Comments.getComment,
+    )
+    .put(
+        // id is comment id
+        Comments.updateComment,
+    )
+    .delete(
+        // id is comment id
+        Comments.deleteComment,
     );
 
 /*
