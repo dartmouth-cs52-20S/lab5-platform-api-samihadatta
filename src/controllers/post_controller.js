@@ -90,3 +90,18 @@ export const updatePost = (req, res) => {
         });
     // res.send('update a post here');
 };
+
+export const search = (req, res) => { // helped a lot by https://medium.com/@apurvashastry/build-a-cool-database-search-using-these-mongodb-full-text-search-features-on-mongoose-cf2803257f9
+    console.log('we searching');
+    Post.find(
+        { $text: { $search: req.params.request } },
+        { score: { $meta: 'textScore' } },
+    )
+        .sort({ score: { $meta: 'textScore' } })
+        .then((result) => {
+            res.json(result);
+        })
+        .catch((error) => {
+            res.status(511).json({ error });
+        });
+};

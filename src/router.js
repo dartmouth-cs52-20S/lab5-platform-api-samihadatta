@@ -55,6 +55,11 @@ router.route('/comments/comment=:id')
         Comments.deleteComment,
     );
 
+router.route('/search/posts/:request')
+    .get(
+        Posts.search,
+    );
+
 /*
 // POST /posts: Posts.createPost
 router.post('/posts', (req, res) => {
