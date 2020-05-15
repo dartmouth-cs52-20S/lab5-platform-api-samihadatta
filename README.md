@@ -11,4 +11,4 @@ I think the process of going through each step methodically and creating structu
 I had a fair number of obscure errors due to some very silly mistakes such as passing in res and req from the router, including a backslash at the end of the root url ini my client, and failing to hook things up correctly. However, I think going through each problem, attacking it, and discussing with TAs whenever I was unsure about something worked well.
 
 ## Extra Credit (laid out in an *extra easy to find* way)
-I changed the format of tags from strings to arrays. I intend to complete functionality for comments, add functionality for search, and alter the frontend to account for filtering and improve the UI.
+I changed the format of tags from strings to arrays. I also completed functionality for comments and a basic search! In the future, I'd like to populate this blog a bit more so that there's more for the search to work with; I'd like to make the search more complicated; I'd like to update the frontend so that it's easier to work with these different features and more cohesive; I'd like to incorporate routing into the search; and I'd like to add frontend tag filtering.
