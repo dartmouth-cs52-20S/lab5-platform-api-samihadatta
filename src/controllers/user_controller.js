@@ -13,12 +13,6 @@ export const signup = (req, res, next) => {
     const { email } = req.body;
     const { password } = req.body;
     const { username } = req.body;
-    console.log('email');
-    console.log(email);
-    console.log('password');
-    console.log(password);
-    console.log('username');
-    console.log(username);
 
     if (!email || !password || !username) {
         return res.status(422).send('You must provide email, password, and username');
@@ -51,9 +45,9 @@ export const signup = (req, res, next) => {
                     res.status(511).send(error);
                 });
         })
-        .catch(
-
-        );
+        .catch((error) => {
+            res.status(512).send(error);
+        });
 };
 
 // encodes a new token for a user object
