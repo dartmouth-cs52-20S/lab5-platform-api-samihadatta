@@ -1,6 +1,8 @@
 import { Router } from 'express';
 import * as Posts from './controllers/post_controller';
 import * as Comments from './controllers/comment_controller';
+import * as UserController from './controllers/user_controller';
+import { requireAuth, requireSignin } from './services/passport';
 
 
 const router = Router();
@@ -13,6 +15,7 @@ router.get('/', (req, res) => {
 
 router.route('/posts')
     .post(
+        requireAuth,
         Posts.createPost,
     )
     .get(
@@ -24,9 +27,11 @@ router.route('/posts/:id')
         Posts.getPost,
     )
     .put(
+        requireAuth,
         Posts.updatePost,
     )
     .delete(
+        requireAuth,
         Posts.deletePost,
     );
 
@@ -37,9 +42,11 @@ router.route('/comments/post=:id')
     )
     .post(
         // id is post id
+        requireAuth,
         Comments.addComment,
     )
     .delete(
+        requireAuth,
         Comments.deleteComments,
     );
 router.route('/comments/comment=:id')
@@ -48,10 +55,12 @@ router.route('/comments/comment=:id')
     )
     .put(
         // id is comment id
+        requireAuth,
         Comments.updateComment,
     )
     .delete(
         // id is comment id
+        requireAuth,
         Comments.deleteComment,
     );
 
@@ -60,31 +69,8 @@ router.route('/search/posts/:request')
         Posts.search,
     );
 
-/*
-// POST /posts: Posts.createPost
-router.post('/posts', (req, res) => {
-    Posts.createPost(req, res);
-});
+router.post('/signin', requireSignin, UserController.signin);
 
-// GET /posts: Posts.getPosts
-router.get('/posts', (req, res) => {
-    Posts.getPost(req, res);
-});
-
-// GET /posts/:id: Posts.getPost
-router.get('/posts/:id', (req, res) => {
-    Posts.getPost(req, res);
-});
-
-// PUT /posts/:id: Posts.updatePost
-router.put('/posts/:id', (req, res) => {
-    Posts.updatePost(req, res);
-});
-
-// DELETE /posts/:id: Posts.deletePost
-router.delete('/posts/:id', (req, res) => {
-    Posts.deletePost(req, res);
-});
-*/
+router.post('/signup', UserController.signup);
 
 export default router;

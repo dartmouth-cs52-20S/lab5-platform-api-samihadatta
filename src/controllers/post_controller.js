@@ -9,6 +9,7 @@ export const createPost = (req, res) => {
     post.tags = req.body.tags;
     post.coverUrl = req.body.coverUrl;
     post.content = req.body.content;
+    post.author = req.user._id;
     post.save()
         .then((result) => {
             // console.log(result);
@@ -23,6 +24,7 @@ export const createPost = (req, res) => {
 export const getPosts = (req, res) => {
     console.log('in getposts');
     return Post.find({})
+        .populate('author')
         .then((result) => {
             // next line's sorting was fixed by https://flaviocopes.com/how-to-sort-array-of-objects-by-property-javascript/
             result.sort((a, b) => { return ((a.createdAt < b.createdAt) ? 1 : -1); });
@@ -38,6 +40,7 @@ export const getPost = (req, res) => {
     console.log('in getPost');
     console.log(req.params);
     Post.findById(req.params.id)
+        .populate('author')
         .then((result) => {
             console.log(result);
             res.json(result);
@@ -49,6 +52,13 @@ export const getPost = (req, res) => {
 };
 
 export const deletePost = (req, res) => {
+    // Post.findById(req.params.id)
+    //     .then((post) => {
+    //         if (post.author.)
+    //     })
+    //     .catch(
+
+    //     );
     Post.findByIdAndRemove(req.params.id)
         .then((result) => {
             res.json({ message: 'delete success' });
@@ -60,9 +70,6 @@ export const deletePost = (req, res) => {
 };
 
 export const updatePost = (req, res) => {
-    console.log('req');
-    console.log(req.params);
-    console.log(req.body);
     const updateFields = {};
     if ('title' in req.body) {
         updateFields.title = req.body.title;
